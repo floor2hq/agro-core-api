@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Req } from '@nestjs/common';
 import { AppService } from './app.service';
 import { Public } from './customs/custom-decorator';
 
@@ -8,7 +8,8 @@ export class AppController {
 
   // @Public()
   @Get()
-  getHello(): string {
+  getHello(@Req() request): string {
+    console.log("user :",request['user'])
     return this.appService.getHello();
   }
 }

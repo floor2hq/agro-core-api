@@ -7,7 +7,6 @@ import { Public } from 'src/customs/custom-decorator';
 @Controller('auth')
 export class AuthController {
   constructor(private authService: AuthService) {}
-
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('login')
