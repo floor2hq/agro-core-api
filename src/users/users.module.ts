@@ -6,16 +6,12 @@ import { UserController } from './user.controller';
 import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports:[
+  imports: [
     ConfigModule,
     MongooseModule.forFeature([{ name: Users.name, schema: UsersSchema }]),
   ],
-  providers: [
-    UsersService
-  ],
-  controllers:[
-    UserController
-  ],
-  exports: [UsersService]
+  providers: [UsersService],
+  controllers: [UserController],
+  exports: [UsersService],
 })
-export class UsersModule { }
+export class UsersModule {}

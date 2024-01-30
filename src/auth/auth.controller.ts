@@ -1,11 +1,18 @@
-
-import { Body, Controller, Post, HttpCode, HttpStatus, Headers, Req } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Post,
+  HttpCode,
+  HttpStatus,
+  Headers,
+  Req,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { Public } from 'src/customs/custom-decorator';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService) {}
 
   @Public()
   @HttpCode(HttpStatus.OK)
@@ -30,5 +37,4 @@ export class AuthController {
     return this.authService.verifyOTP(request);
   }
   */
-
 }

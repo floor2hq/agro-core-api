@@ -9,7 +9,7 @@ export class AppController {
   // @Public()
   @Get()
   getHello(@Req() request): string {
-    console.log("user :",request['user'])
+    console.log('user :', request['user']);
     return this.appService.getHello();
   }
 }

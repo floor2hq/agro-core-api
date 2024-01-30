@@ -10,11 +10,11 @@ import { ConfigModule, ConfigService } from '@nestjs/config'; // Import ConfigSe
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRootAsync({
-      imports: [ConfigModule], 
+      imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
-        uri: configService.get<string>('MONGODB_URL'), 
+        uri: configService.get<string>('MONGODB_URL'),
       }),
-      inject: [ConfigService], 
+      inject: [ConfigService],
     }),
     AuthModule,
     UsersModule,
