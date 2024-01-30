@@ -1,13 +1,29 @@
-import { Body, Controller, Get } from "@nestjs/common";
-import { Role } from "src/roles/role.enum";
-import { Roles } from "src/roles/roles.decorator";
+import { Body, Controller, Get, Post, Req } from "@nestjs/common";
+import { UsersService } from "./users.service";
+import { Public } from "src/customs/custom-decorator";
+import { ConfigService } from "@nestjs/config";
 
-@Controller('user')
+@Controller('users')
 export class UserController {
 
-    @Get()
-    @Roles(Role.Admin)
-    create(@Body() createCatDto : any) {
-        return "cat created";
-    }
+  constructor(
+    private readonly usersService: UsersService,
+    private configService: ConfigService
+
+  ) {
+   }
+  
+
+  @Get()
+  async test() {
+   const dbUser = this.configService.get<string>('DATABASE_USER');
+   console.log("dbUser :",dbUser);
+    return { hi: "hi" };
+  }
+
+  @Post()
+  async create(@Req() request) {
+    
+    return await this.usersService.create(request['user']['user']);
+  }
 }

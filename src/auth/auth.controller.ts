@@ -11,20 +11,17 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @Post('login')
   logIn(@Body() signInDto: Record<string, any>) {
-    return this.authService.logIn(signInDto.username, signInDto.password);
+    return this.authService.logIn(signInDto.mail, signInDto.password);
   }
-
-  /* user registers with mail and password , and ph no. and /POSTS in this route
-   the route extracts these params,creates a JWT Token and embeds otp in it.
-  */
 
   @Public()
   @HttpCode(HttpStatus.OK)
   @Post('sign-up')
   signUp(@Body() reqBody) {
-    return this.authService.signUp(reqBody['username'], reqBody['password']);
+    return this.authService.signUp(reqBody);
   }
 
+  /*
   @HttpCode(HttpStatus.OK)
   @Post('verify-otp')
   verifyOTP(
@@ -32,9 +29,6 @@ export class AuthController {
   ) {
     return this.authService.verifyOTP(request);
   }
+  */
 
 }
-
-/**
- * eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IlNvdWJoaWsiLCJwYXNzd29yZCI6ImdvbmdvbmdvbiIsIm90cCI6IjA3MjQ5NyIsImlhdCI6MTcwNjU5NDA2MCwiZXhwIjoxNzA2NjgwNDYwfQ.JGaA7XApdXfUmCKLVgoIiIa1-jvH0vCA0Z97otD-WHs
- */
