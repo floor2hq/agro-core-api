@@ -1,7 +1,8 @@
 import { NextFunction, Request, Response } from "express";
-
+import IUser from "../database/model/user.model";
+import jwt from "jsonwebtoken"
 interface customReq extends Request {
-    user?:any
+    user?:IUser
 }
 
 const authenticateToken = (req: customReq, res: Response, next: NextFunction) => {

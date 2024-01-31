@@ -1,10 +1,10 @@
 import mongoose, { Document, Schema } from 'mongoose';
-import ROLE, { RolesEnumList } from '../../constants/role.enum';
+import ROLE from '../../constants/role.enum';
 
 interface IUser extends Document {
     _id?: mongoose.Types.ObjectId
     name: string    
-    email: string;
+    mail: string;
     createdAt: Date;
     password:string;
     role:ROLE
@@ -15,7 +15,7 @@ const userSchema = new Schema<IUser>({
         type: String,
         required: true,
     },
-    email: {
+    mail: {
         type: String,
         required: true,
         unique: true,
@@ -29,7 +29,8 @@ const userSchema = new Schema<IUser>({
         required:true,
     },
     role: {
-        enum: RolesEnumList,
+        type:String,
+        enum: ROLE,
         default:ROLE.FARMER,
     },
 });

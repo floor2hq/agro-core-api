@@ -1,10 +1,7 @@
 enum ROLE {
-    FARMER = 12,
-    COLD_STORAGE_OWNER = 23,
-    DISTRIBUTOR = 34,
-}
-
-
-export const RolesEnumList = Object.values(ROLE);
+    FARMER = "FARMER",
+    COLD_STORAGE_OWNER = "COLD_STORAGE_OWNER",
+    DISTRIBUTOR = "DISTRIBUTOR",
+  }
 
 export default ROLE;
