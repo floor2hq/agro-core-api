@@ -1,8 +1,9 @@
 import express from 'express'
 import dotenv from 'dotenv'
 import { appConfig } from './helpers/config'
+import connectToDB from './database/service'
 dotenv.config()
-
+connectToDB()
 const app = express();
 
 const HOST = appConfig.hostProd 

@@ -1,6 +1,15 @@
 import mongoose from 'mongoose'
 import { dbConfig } from '../helpers/config'
 
-const connectionURI= dbConfig.dbURI
+const connectionURI = dbConfig.dbURI
 
-mongoose.connect(connectionURI)
+async function connectToDB() {
+    try {
+        mongoose.connect(connectionURI);
+        console.log("Connection successful");
+    }catch(e :any) {
+        console.log(e.message)
+    }
+}
+
+export default connectToDB
