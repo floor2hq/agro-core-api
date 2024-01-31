@@ -7,7 +7,6 @@ import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    ConfigModule,
     MongooseModule.forFeature([{ name: Users.name, schema: UsersSchema }]),
   ],
   providers: [UsersService],
