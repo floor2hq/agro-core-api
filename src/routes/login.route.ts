@@ -22,7 +22,7 @@ loginRouter.post("/", async (req: Request, res: Response): Promise<IUser | undef
         if (user.password === password) {
             //make a jwt , send jwt + user object
             // @ts-ignore
-            const token = jwt.sign({ user }, process.env.JWT_SECRET, { expiresIn: '24h' });
+            const token = jwt.sign({ user }, 'saswatgay', { expiresIn: '24h' });
             res.status(200).json({ token, user:sanitizeUser(user)});
             return;
         }
