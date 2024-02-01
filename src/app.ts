@@ -23,11 +23,14 @@ connectToDB()
 
 // Routes
 
-
+//Auth Routes [NO_JWT_MIDDLEWARE]
 app.use("/registration",registrationRoute)
 app.use("/login",loginRouter)
+
 app.use("/crop", CropRouter)
 app.use("/farm",farmRouter)
+
+
 app.get('/ruok', authenticateToken ,(req, res) => {
     res.json({
         "imok" : true,
