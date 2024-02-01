@@ -3,14 +3,14 @@ import ICrop from './crop.model'
 import IUser from './user.model';
 
 
-interface Farm extends Document {
+interface IFarm extends Document {
     location: string;
     size: number;
     crops: ICrop[];
     owner: IUser
 }
 
-const farmSchema = new Schema<Farm>({
+const farmSchema = new Schema<IFarm>({
     location: {
         type: String,
         required: true
@@ -32,6 +32,6 @@ const farmSchema = new Schema<Farm>({
     
 });
 
-const Farm = mongoose.model<Farm>('Farm', farmSchema, 'farms');
+export const Farm = mongoose.model<IFarm>('Farm', farmSchema, 'farms');
 
-export default Farm;
+export default IFarm;

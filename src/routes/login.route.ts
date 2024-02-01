@@ -1,6 +1,7 @@
 import express, { Request, Response } from "express";
 import IUser, { User } from "../database/model/user.model";
 import jwt from "jsonwebtoken";
+import sanitizeUser from "../helpers/sanitizeUser";
 const loginRouter = express.Router();
 
 loginRouter.post("/", async (req: Request, res: Response): Promise<IUser | undefined> => {
@@ -19,9 +20,10 @@ loginRouter.post("/", async (req: Request, res: Response): Promise<IUser | undef
         };
 
         if (user.password === password) {
-            //make a jwt , send jwt + user object 
-            const token = jwt.sign({ userId: user._id }, 'your-secret-key', { expiresIn: '24h' });
-            res.status(200).json({ token, user });
+            //make a jwt , send jwt + user object
+            // @ts-ignore
+            const token = jwt.sign({ user }, process.env.JWT_SECRET, { expiresIn: '24h' });
+            res.status(200).json({ token, user:sanitizeUser(user)});
             return;
         }
 

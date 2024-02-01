@@ -7,6 +7,8 @@ import bodyParser from 'body-parser'
 import registrationRoute from "./routes/registration.route"
 import loginRouter from './routes/login.route'
 import CropRouter from './routes/crop.route'
+import authenticateToken from './helpers/authenticateToken'
+import farmRouter from './routes/farm.route'
 
 // Configurations 
 dotenv.config()
@@ -25,10 +27,12 @@ connectToDB()
 app.use("/registration",registrationRoute)
 app.use("/login",loginRouter)
 app.use("/crop", CropRouter)
-
-app.get('/ruok', (_, res) => {
+app.use("/farm",farmRouter)
+app.get('/ruok', authenticateToken ,(req, res) => {
     res.json({
-        "imok" : true
+        "imok" : true,
+        // @ts-ignore
+        user:req['user']
     })
 })
 

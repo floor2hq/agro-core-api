@@ -18,7 +18,7 @@ const userSchema = new Schema<IUser>({
     mail: {
         type: String,
         required: true,
-        unique: true,
+        unique:true
     },
     createdAt: {
         type: Date,
