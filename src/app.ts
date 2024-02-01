@@ -1,7 +1,7 @@
 // Imports
 import express, { Application } from 'express'
 import dotenv from 'dotenv'
-import { appConfig } from './helpers/config'
+// import { appConfig } from './helpers/config'
 import connectToDB from './database/service'
 import bodyParser from 'body-parser'
 import registrationRoute from "./routes/registration.route"
@@ -15,8 +15,9 @@ const app : Application = express();
 app.use(express.json())
 app.use(bodyParser.urlencoded({extended:true}));
 
-const HOST = appConfig.hostProd 
-const PORT = parseInt(appConfig.portProd , 10)
+// const HOST = appConfig.hostProd 
+const PORT = 3000
+// Fuck you @majorbruteforce,from zakhaev26 (from punit's laptop)
 
 connectToDB()
 
@@ -37,6 +38,6 @@ app.get('/healthz' ,(_, res) => {
     })
 })
 
-app.listen(PORT, HOST, () => {
-    console.log(`Server live at http://${HOST}:${PORT}`)
+app.listen(PORT, () => {
+    console.log(`Server live at http://uhh...:${PORT}`)
 })
