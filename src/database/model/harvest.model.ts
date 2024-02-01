@@ -1,11 +1,13 @@
 import mongoose, { Document, Schema } from 'mongoose';
 import ICrop from './crop.model';
-import { TQuantity } from '../types/quantity.type';
+import IQuantity from './quantity.model';
 
+
+//@TODO Change quantity type
 
 interface IHarvest extends Document {
     _id?: mongoose.Types.ObjectId
-    quantity: number
+    quantity: IQuantity
     crop: ICrop
     rate: number
     farmer: mongoose.Types.ObjectId
@@ -17,13 +19,42 @@ interface IHarvest extends Document {
 
 const harvestSchema = new Schema<IHarvest>({
     quantity: {
-        type: Number,
+        type: Schema.Types.ObjectId,
+        ref: 'Quantity',
         required: true
     },
     crop: {
         type: Schema.Types.ObjectId,
         ref: 'Crop',  // Reference to the Crop model
         required: true,
+        immutable: true
+    },
+    rate: {
+        type: Number,
+        required: true
+    },
+    farmer: {
+        type: Schema.Types.ObjectId,
+        ref: 'Farmer',
+        required: true,
+        immutable: true
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now(),
+        immutable: true
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now()
+    },
+    producedAt: {
+        type: Date,
+        default: Date.now(),
+        immutable: true
+    },
+    bestUntil: {
+        type: Number
     }
 
 });
