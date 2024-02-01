@@ -51,7 +51,8 @@ const harvestSchema = new Schema<IHarvest>({
         immutable: true
     },
     bestUntil: {
-        type: Number
+        type: Number,
+        required: false
     }
 
 });

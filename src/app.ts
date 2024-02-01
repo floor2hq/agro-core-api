@@ -21,11 +21,9 @@ connectToDB()
 
 // Routes
 
-/* Authentication */
+
 app.use("/registration",registrationRoute)
 app.use("/login",loginRouter)
-
-/* Crop CRUD */
 app.use("/crop", CropRouter)
 
 app.get('/ruok', (_, res) => {
