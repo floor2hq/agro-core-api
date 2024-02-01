@@ -7,7 +7,6 @@ import bodyParser from 'body-parser'
 import registrationRoute from "./routes/registration.route"
 import loginRouter from './routes/login.route'
 import CropRouter from './routes/crop.route'
-import authenticateToken from './helpers/authenticateToken'
 import farmRouter from './routes/farm.route'
 
 // Configurations 
@@ -31,11 +30,10 @@ app.use("/crop", CropRouter)
 app.use("/farm",farmRouter)
 
 
-app.get('/ruok', authenticateToken ,(req, res) => {
+app.get('/healthz' ,(_, res) => {
     res.json({
-        "imok" : true,
-        // @ts-ignore
-        user:req['user']
+        "health":"Server Healthy.",
+        "isPunitGay?":true,
     })
 })
 
