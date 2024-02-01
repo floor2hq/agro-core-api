@@ -6,7 +6,7 @@ import connectToDB from './database/service'
 import bodyParser from 'body-parser'
 import registrationRoute from "./routes/registration.route"
 import loginRouter from './routes/login.route'
-import createCropRouter from './routes/crop/createCrop.router'
+import CropRouter from './routes/crop.route'
 
 // Configurations 
 dotenv.config()
@@ -26,7 +26,7 @@ app.use("/registration",registrationRoute)
 app.use("/login",loginRouter)
 
 /* Crop CRUD */
-app.use("/crop", createCropRouter)
+app.use("/crop", CropRouter)
 
 app.get('/ruok', (_, res) => {
     res.json({

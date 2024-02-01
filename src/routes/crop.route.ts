@@ -26,13 +26,14 @@ CropRouter.post("/", async (req: Request, res: Response) => {
 CropRouter.get("/", async (_: Request, res: Response) => {
 
     try {
-        const allCrops= Crop.find();
-        console.log("Fetched all crops")
+        const allCrops= await Crop.find({});
+        console.log(allCrops)
         res.json(allCrops)
     } catch (error: any) {
         console.error("Error fetching crops", error.message);
         res.status(500).json({ error: error.message });
     }
 })
+
 
 export default CropRouter
