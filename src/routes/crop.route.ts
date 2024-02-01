@@ -1,10 +1,10 @@
 import express, { Request, Response } from "express";
-import { Crop } from "../../database/model/crop.model";
+import { Crop } from "../database/model/crop.model";
 
 
-const createCropRouter = express.Router();
+const CropRouter = express.Router();
 
-createCropRouter.post("/", async (req: Request, res: Response) => {
+CropRouter.post("/", async (req: Request, res: Response) => {
     const { name, variety, lifespan } = req.body;
 
     try {
@@ -23,4 +23,16 @@ createCropRouter.post("/", async (req: Request, res: Response) => {
     }
 })
 
-export default createCropRouter
+CropRouter.get("/", async (_: Request, res: Response) => {
+
+    try {
+        const allCrops= Crop.find();
+        console.log("Fetched all crops")
+        res.json(allCrops)
+    } catch (error: any) {
+        console.error("Error fetching crops", error.message);
+        res.status(500).json({ error: error.message });
+    }
+})
+
+export default CropRouter
