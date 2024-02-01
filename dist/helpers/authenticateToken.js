@@ -10,8 +10,7 @@ const authenticateToken = (req, res, next) => {
     // @ts-ignore
     if (!token)
         return res.status(401).end("No Token,access denied");
-    // @ts-ignore
-    jsonwebtoken_1.default.verify(token, process.env.JWT_SECRET, (err, user) => {
+    jsonwebtoken_1.default.verify(token, 'saswatgay', (err, user) => {
         if (err)
             return res.status(401).end("Token Invalid.");
         req.user = user;

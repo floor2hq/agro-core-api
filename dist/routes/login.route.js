@@ -34,7 +34,7 @@ loginRouter.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* 
         if (user.password === password) {
             //make a jwt , send jwt + user object
             // @ts-ignore
-            const token = jsonwebtoken_1.default.sign({ user }, process.env.JWT_SECRET, { expiresIn: '24h' });
+            const token = jsonwebtoken_1.default.sign({ user }, 'saswatgay', { expiresIn: '24h' });
             res.status(200).json({ token, user: (0, sanitizeUser_1.default)(user) });
             return;
         }
