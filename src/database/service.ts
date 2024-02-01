@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import { dbConfig } from '../helpers/config'
 
-const connectionURI = dbConfig.dbURI
+const connectionURI = dbConfig.dbURI as string;
 export var db: mongoose.Connection;
 
 async function connectToDB() {
@@ -14,7 +14,7 @@ async function connectToDB() {
         })
 
         db.once('open', () => {
-            console.log("Database connection successfull");
+            console.log("Database connection successful");
         })
 
     } catch (e: any) {
