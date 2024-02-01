@@ -22,6 +22,6 @@ const cropSchema = new Schema<ICrop>({
     }
 });
 
-export const Crop = mongoose.model<ICrop>('Crop', cropSchema);
+export const Crop = mongoose.model<ICrop>('Crop', cropSchema, 'crops');
 
 export default ICrop;

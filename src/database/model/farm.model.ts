@@ -32,6 +32,6 @@ const farmSchema = new Schema<Farm>({
     
 });
 
-const Farm = mongoose.model<Farm>('Farm', farmSchema);
+const Farm = mongoose.model<Farm>('Farm', farmSchema, 'farms');
 
 export default Farm;

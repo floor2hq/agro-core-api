@@ -2,9 +2,6 @@ import mongoose, { Document, Schema } from 'mongoose';
 import ICrop from './crop.model';
 import IQuantity from './quantity.model';
 
-
-//@TODO Change quantity type
-
 interface IHarvest extends Document {
     _id?: mongoose.Types.ObjectId
     quantity: IQuantity
@@ -59,6 +56,6 @@ const harvestSchema = new Schema<IHarvest>({
 
 });
 
-export const Crop = mongoose.model<IHarvest>('Harvest', harvestSchema);
+export const Harvest = mongoose.model<IHarvest>('Harvest', harvestSchema, 'harvests');
 
 export default IHarvest;
