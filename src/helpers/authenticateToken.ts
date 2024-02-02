@@ -15,6 +15,7 @@ const authenticateToken = (req: customReq, res: Response, next: NextFunction) =>
     jwt.verify(token, 'saswatgay', (err: any, user: any) => {
         if (err) return res.status(401).end("Token Invalid.");
         req.user = user
+        console.log(user)
         next();
     });
 };
