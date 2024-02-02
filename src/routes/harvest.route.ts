@@ -33,18 +33,12 @@ HarvestRouter.post("/", authenticateToken, async (req: customReq, res: Response)
     }
 })
 
-HarvestRouter.get("/", authenticateToken ,async (req: customReq, res: Response) => {
+HarvestRouter.get("/", authenticateToken, async (req: customReq, res: Response) => {
 
     // @ts-ignore
-    const farmerID= req.user?.user._id
+    const farmerID = req.user?.user._id
     try {
-        const allHarvests= await Harvest.aggregate([
-            {
-                $match : {
-                    'farmer': new mongoose.Types.ObjectId(farmerID)
-                }
-            }
-        ]);
+        const allHarvests = await Harvest.find( {farmer: new mongoose.Types.ObjectId(farmerID)})
         console.log(allHarvests)
         res.json(allHarvests)
     } catch (error: any) {
