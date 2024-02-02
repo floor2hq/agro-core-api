@@ -28,7 +28,6 @@ CropRouter.get("/", authenticateToken, async ( _: Request, res: Response) => {
 
     try {
         const allCrops = await Crop.find({});
-        console.log(allCrops)
         res.json(allCrops)
     } catch (error: any) {
         console.error("Error fetching crops", error.message);

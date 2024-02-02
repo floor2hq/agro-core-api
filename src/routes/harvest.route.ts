@@ -1,20 +1,28 @@
 import express, { Request, Response } from "express";
 import { Harvest } from "../database/model/harvest.model";
+import authenticateToken from "../helpers/authenticateToken";
+import IUser from "../database/model/user.model";
+import mongoose from "mongoose";
 
+interface customReq extends Request {
+    user?: IUser
+}
 
 const HarvestRouter = express.Router();
 
-HarvestRouter.post("/", async (req: Request, res: Response) => {
-    const { quantity, crop, rate, farmer, producedAt } = req.body;
+HarvestRouter.post("/", authenticateToken, async (req: customReq, res: Response) => {
+    const { quantity, crop, rate, producedAt } = req.body;
 
     try {
         const newHarvest = new Harvest({
             quantity,
             crop,
             rate,
-            farmer,
+            //@ts-ignore
+            farmer: req.user?.user._id,
             producedAt
         })
+
 
         const savedHarvest: any = await newHarvest.save();
         console.log(`Harvest ${savedHarvest._id} saved successfully`)
@@ -25,12 +33,20 @@ HarvestRouter.post("/", async (req: Request, res: Response) => {
     }
 })
 
-HarvestRouter.get("/", async (_: Request, res: Response) => {
+HarvestRouter.get("/", authenticateToken ,async (req: customReq, res: Response) => {
 
+    // @ts-ignore
+    const farmerID= req.user?.user._id
     try {
-        const allCrops= await Harvest.find({});
-        console.log(allCrops)
-        res.json(allCrops)
+        const allHarvests= await Harvest.aggregate([
+            {
+                $match : {
+                    'farmer': new mongoose.Types.ObjectId(farmerID)
+                }
+            }
+        ]);
+        console.log(allHarvests)
+        res.json(allHarvests)
     } catch (error: any) {
         console.error("Error fetching crops", error.message);
         res.status(500).json({ error: error.message });
