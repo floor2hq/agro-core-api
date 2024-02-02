@@ -24,7 +24,7 @@ CropRouter.post("/", authenticateToken, async (req: Request, res: Response) => {
     }
 })
 
-CropRouter.get("/", authenticateToken, async (_: Request, res: Response) => {
+CropRouter.get("/", authenticateToken, async ( _: Request, res: Response) => {
 
     try {
         const allCrops = await Crop.find({});

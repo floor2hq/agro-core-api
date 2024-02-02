@@ -7,7 +7,8 @@ interface customReq extends Request {
 }
 
 const authenticateToken = (req: customReq, res: Response, next: NextFunction) => {
-    const token = req.header('Authorization')?.split(' ')[1];
+    // const token = req.header('Authorization')?.split(' ')[1];
+    const token = req.header('Authorization');
     // @ts-ignore
     if (!token) return res.status(401).end("No Token,access denied");
 

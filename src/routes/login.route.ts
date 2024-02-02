@@ -9,7 +9,7 @@ loginRouter.post("/", async (req: Request, res: Response): Promise<IUser | undef
 
     try {
         console.log("Entered")
-        console.log( { mail, password })
+        console.log({ mail, password })
         const user: IUser | null = await User.findOne({
             mail
         })
@@ -23,7 +23,7 @@ loginRouter.post("/", async (req: Request, res: Response): Promise<IUser | undef
             //make a jwt , send jwt + user object
             // @ts-ignore
             const token = jwt.sign({ user }, 'saswatgay', { expiresIn: '24h' });
-            res.status(200).json({ token, user:sanitizeUser(user)});
+            res.status(200).json({ token, user: sanitizeUser(user) });
             return;
         }
 

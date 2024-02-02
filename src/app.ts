@@ -17,7 +17,7 @@ app.use(bodyParser.urlencoded({extended:true}));
 
 // const HOST = appConfig.hostProd 
 const PORT = 3000
-// Fuck you @majorbruteforce,from zakhaev26 (from punit's laptop)
+// @zakhaev26 this will end in blood and dust
 
 connectToDB()
 
@@ -29,6 +29,7 @@ app.use("/login",loginRouter)
 
 app.use("/crop", CropRouter)
 app.use("/farm",farmRouter)
+
 
 
 app.get('/healthz' ,(_, res) => {
