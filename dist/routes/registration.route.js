@@ -16,13 +16,14 @@ const express_1 = __importDefault(require("express"));
 const user_model_1 = require("../database/model/user.model");
 const registrationRouter = express_1.default.Router();
 registrationRouter.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { name, mail, password, role } = req.body;
+    const { name, mail, password, role, phone } = req.body;
     try {
         const newUser = new user_model_1.User({
             name,
             mail,
             password,
-            role
+            role,
+            phone
         });
         const savedUser = yield newUser.save();
         res.send(savedUser.toObject());

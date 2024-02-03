@@ -28,9 +28,10 @@ loginRouter.post("/", (req, res) => __awaiter(void 0, void 0, void 0, function* 
         console.log(user);
         if (!user) {
             console.log("NO USER FOUND");
-            return;
+            res.status(400).send("user not found");
         }
         ;
+        // @ts-ignore
         if (user.password === password) {
             //make a jwt , send jwt + user object
             // @ts-ignore

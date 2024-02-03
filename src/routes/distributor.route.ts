@@ -25,10 +25,13 @@ distributorRouter.get("/", authenticateToken, async (req: customReq, res: Respon
             .populate({
                 path: 'crop',
             })
+            .populate({
+                path: 'farm',
+                select: ['_id', 'location', 'size']
+            })
 
-         // Assuming there are multiple harvests, iterate through them
         //  @ts-ignore
-         allHarvests.forEach((harvest: Harvest) => {
+        allHarvests.forEach((harvest: Harvest) => {
             // @ts-ignore
             harvest['bestUntil'] = bestUntilFx(harvest['producedAt'], harvest['crop']['lifespan']);
         });
@@ -40,5 +43,27 @@ distributorRouter.get("/", authenticateToken, async (req: customReq, res: Respon
     }
 })
 
+distributorRouter.get("/:cropId", async (req: customReq, res: Response) => {
+    const crop = req.params.cropId;
+
+    // @ts-ignore
+    const specificCrops: Document<Harvest[]> = await Harvest.find({
+        crop
+    })
+    .populate({
+        path: 'farmer',
+        select: ['_id', 'name', 'mail', 'phone']
+    })
+    .populate({
+        path: 'crop',
+    })
+    .populate({
+        path: 'farm',
+        select: ['_id', 'location', 'size']
+    })
+    
+    console.log(specificCrops)
+    res.json(specificCrops);
+})
 
 export default distributorRouter

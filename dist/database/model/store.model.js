@@ -22,41 +22,57 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
+exports.Store = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
-const role_enum_1 = __importDefault(require("../../constants/role.enum"));
-const userSchema = new mongoose_1.Schema({
-    name: {
-        type: String,
+const storeSchema = new mongoose_1.Schema({
+    quantity: {
+        type: {
+            amount: Number,
+            unit: String
+        },
         required: true,
+        _id: false
     },
-    mail: {
-        type: String,
+    crop: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: 'Crop', // Reference to the Crop model
         required: true,
-        unique: true
+        immutable: true
     },
-    password: {
-        type: String,
-        required: true,
-    },
-    role: {
-        type: String,
-        enum: role_enum_1.default,
-        default: role_enum_1.default.FARMER,
-    },
-    phone: {
+    rate: {
         type: Number,
-        length: 10,
+        required: true
+    },
+    owner: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: 'User',
         required: true,
-        unique: true,
+        immutable: true
     },
     createdAt: {
         type: Date,
-        default: Date.now,
+        default: Date.now(),
+        immutable: true
+    },
+    updatedAt: {
+        type: Date,
+        default: Date.now()
+    },
+    storedAt: {
+        type: Date,
+        default: Date.now(),
+        immutable: true
+    },
+    bestUntil: {
+        type: Number,
+        required: false
+    },
+    harvest: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: 'Harvest',
+        required: true,
+        immutable: true
     }
 });
-exports.User = mongoose_1.default.model('User', userSchema, 'users');
+exports.Store = mongoose_1.default.model('Store', storeSchema, 'stores');

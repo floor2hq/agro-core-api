@@ -22,41 +22,27 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
+exports.Storage = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
-const role_enum_1 = __importDefault(require("../../constants/role.enum"));
-const userSchema = new mongoose_1.Schema({
-    name: {
+const storageSchema = new mongoose_1.Schema({
+    location: {
         type: String,
-        required: true,
+        required: true
     },
-    mail: {
-        type: String,
-        required: true,
-        unique: true
-    },
-    password: {
-        type: String,
-        required: true,
-    },
-    role: {
-        type: String,
-        enum: role_enum_1.default,
-        default: role_enum_1.default.FARMER,
-    },
-    phone: {
+    capacity: {
         type: Number,
-        length: 10,
-        required: true,
-        unique: true,
+        required: true
     },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-    }
+    crops: [{
+            type: mongoose_1.Schema.Types.ObjectId,
+            ref: 'Crop', // Reference to the Crop model
+            required: true,
+        }],
+    owner: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: 'User', // Reference to the User model
+        required: true,
+    },
 });
-exports.User = mongoose_1.default.model('User', userSchema, 'users');
+exports.Storage = mongoose_1.default.model('Storage', storageSchema, 'storages');

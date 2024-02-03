@@ -11,7 +11,7 @@ interface customReq extends Request {
 const HarvestRouter = express.Router();
 
 HarvestRouter.post("/", authenticateToken, async (req: customReq, res: Response) => {
-    const { quantity, crop, rate, producedAt } = req.body;
+    const { quantity, crop, rate, producedAt,farm } = req.body;
 
     try {
         const newHarvest = new Harvest({
@@ -20,7 +20,8 @@ HarvestRouter.post("/", authenticateToken, async (req: customReq, res: Response)
             rate,
             //@ts-ignore
             farmer: req.user?.user._id,
-            producedAt
+            producedAt,
+            farm
         })
 
 

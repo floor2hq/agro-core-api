@@ -17,7 +17,7 @@ const crop_model_1 = require("../database/model/crop.model");
 const authenticateToken_1 = __importDefault(require("../helpers/authenticateToken"));
 const isAdmin_1 = __importDefault(require("../helpers/isAdmin"));
 const CropRouter = express_1.default.Router();
-CropRouter.post("/", authenticateToken_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+CropRouter.post("/", authenticateToken_1.default, isAdmin_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, variety, lifespan } = req.body;
     try {
         const newCrop = new crop_model_1.Crop({
@@ -34,10 +34,9 @@ CropRouter.post("/", authenticateToken_1.default, (req, res) => __awaiter(void 0
         res.status(500).json({ error: error.message });
     }
 }));
-CropRouter.get("/", authenticateToken_1.default, (_, res) => __awaiter(void 0, void 0, void 0, function* () {
+CropRouter.get("/", (_, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const allCrops = yield crop_model_1.Crop.find({});
-        console.log(allCrops);
         res.json(allCrops);
     }
     catch (error) {
@@ -45,7 +44,7 @@ CropRouter.get("/", authenticateToken_1.default, (_, res) => __awaiter(void 0, v
         res.status(500).json({ error: error.message });
     }
 }));
-CropRouter.patch("/", authenticateToken_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+CropRouter.patch("/", authenticateToken_1.default, isAdmin_1.default, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { _id, name, variety, lifespan } = req.body;
         const updatedCrop = yield crop_model_1.Crop.updateOne({ _id }, {

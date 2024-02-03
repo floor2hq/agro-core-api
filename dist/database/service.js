@@ -14,23 +14,13 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.db = void 0;
 const mongoose_1 = __importDefault(require("mongoose"));
-// import { dbConfig } from '../helpers/config'
-// Fuck Your Configs , @majorbruteforce
-// I Wasted ~30mins here
+// @zakhaev26, this is unacceptable behaviour, you don't touch my configs, I will have to culture you
 const connectionURI = `mongodb+srv://soubhik:soubhik@cluster0.1vpjft8.mongodb.net/?retryWrites=true&w=majority`;
 function connectToDB() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             yield mongoose_1.default.connect(connectionURI);
             console.log("Connection Successful");
-            // Fuck your db.ons again
-            // db = mongoose.connection
-            // db.on('error', (e: Error) => {
-            //     console.log(`Error connecting to database: ${e.message}`)
-            // })
-            // db.once('open', () => {
-            //     console.log("Database connection successful");
-            // })
         }
         catch (e) {
             console.log(e.message);

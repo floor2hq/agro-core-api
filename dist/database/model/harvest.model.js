@@ -27,9 +27,12 @@ exports.Harvest = void 0;
 const mongoose_1 = __importStar(require("mongoose"));
 const harvestSchema = new mongoose_1.Schema({
     quantity: {
-        type: mongoose_1.Schema.Types.ObjectId,
-        ref: 'Quantity',
-        required: true
+        type: {
+            amount: Number,
+            unit: String
+        },
+        required: true,
+        _id: false
     },
     crop: {
         type: mongoose_1.Schema.Types.ObjectId,
@@ -43,9 +46,15 @@ const harvestSchema = new mongoose_1.Schema({
     },
     farmer: {
         type: mongoose_1.Schema.Types.ObjectId,
-        ref: 'Farmer',
+        ref: 'User',
         required: true,
         immutable: true
+    },
+    farm: {
+        type: mongoose_1.Schema.Types.ObjectId,
+        ref: 'Farm',
+        required: true,
+        immutable: true,
     },
     createdAt: {
         type: Date,
