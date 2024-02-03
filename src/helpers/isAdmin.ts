@@ -10,9 +10,7 @@ interface customReq extends Request {
 export default function isAdmin(req: customReq, res: Response, next: NextFunction) {
     const { user } = req;
     // @ts-ignore
-    console.log(user?.user.role === ROLE.ADMIN)
-    // @ts-ignore
     if (user?.user.role === ROLE.ADMIN) { next() } else {
-        res.status(400).send("You Ain't Admin,can't Perform this Operation")
+        res.status(400).send("You Ain't Admin, can't Perform this Operation")
     };
 }  

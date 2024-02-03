@@ -5,7 +5,7 @@ import isAdmin from "../helpers/isAdmin";
 
 const CropRouter = express.Router();
 
-CropRouter.post("/", authenticateToken, async (req: Request, res: Response) => {
+CropRouter.post("/", authenticateToken,  isAdmin,  async (req: Request, res: Response) => {
     const { name, variety, lifespan } = req.body;
 
     try {
@@ -24,7 +24,7 @@ CropRouter.post("/", authenticateToken, async (req: Request, res: Response) => {
     }
 })
 
-CropRouter.get("/", authenticateToken, async ( _: Request, res: Response) => {
+CropRouter.get("/", async ( _: Request, res: Response) => {
 
     try {
         const allCrops = await Crop.find({});
@@ -35,7 +35,7 @@ CropRouter.get("/", authenticateToken, async ( _: Request, res: Response) => {
     }
 })
 
-CropRouter.patch("/", authenticateToken, async (req: Request, res: Response) => {
+CropRouter.patch("/", authenticateToken,  isAdmin,  async (req: Request, res: Response) => {
 
     try {
         const { _id, name, variety, lifespan } = req.body;
