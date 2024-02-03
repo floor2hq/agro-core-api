@@ -62,19 +62,24 @@ async function createNewHarvest(){
         "crop": crops[randomNumber(0, crops.length - 1)],
         "rate": randomNumber(20,1000)
     }
-    harvestOptions.body = newHarvest;
-    console.log(harvestOptions)
-    const res= JSON.parse(await fetch(harvestURI, harvestOptions));
-    console.log(res)
+    console.log(JSON.stringify(newHarvest))
+//     harvestOptions.body = newHarvest;
+//     console.log(harvestOptions)
+//     const res= JSON.parse(await fetch(harvestURI, harvestOptions));
+//     console.log(res)
 }
 
 (async function main() {
     try {
         crops = JSON.parse(await fetch(cropsURI, cropOptions));
-        for (i=0; i<numberOfHarvests -1; i++){
-            createNewHarvest();
+        while (1){
+            createNewHarvest()
+            console.log()
+            console.log()
+            console.log()
         }
     } catch (e) {
         console.log(e)
     }
 })()
+
