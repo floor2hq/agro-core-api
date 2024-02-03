@@ -9,7 +9,7 @@ import loginRouter from './routes/login.route'
 import CropRouter from './routes/crop.route'
 import farmRouter from './routes/farm.route'
 import HarvestRouter from './routes/harvest.route'
-
+import distributorRouter from "./routes/distributor.route"
 // Configurations 
 dotenv.config()
 const app: Application = express();
@@ -31,7 +31,7 @@ app.use("/login", loginRouter)
 app.use("/crop", CropRouter)
 app.use("/farm", farmRouter)
 app.use("/harvest", HarvestRouter)
-
+app.use("/distributor",distributorRouter)
 
 app.get('/healthz', (_, res) => {
     res.json({

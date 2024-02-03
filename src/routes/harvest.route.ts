@@ -33,6 +33,7 @@ HarvestRouter.post("/", authenticateToken, async (req: customReq, res: Response)
     }
 })
 
+// GET All Surplus / Harvest (FARMER's PERSPECTIVE)
 HarvestRouter.get("/", authenticateToken ,async (req: customReq, res: Response) => {
 
     // @ts-ignore

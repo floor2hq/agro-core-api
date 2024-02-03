@@ -1,8 +1,7 @@
 import mongoose from 'mongoose'
-import { dbConfig } from '../helpers/config'
 // @zakhaev26, this is unacceptable behaviour, you don't touch my configs, I will have to culture you
 
-const connectionURI = dbConfig.dbURI;
+const connectionURI = `mongodb+srv://soubhik:soubhik@cluster0.1vpjft8.mongodb.net/?retryWrites=true&w=majority`
 export var db: mongoose.Connection;
 
 async function connectToDB() {

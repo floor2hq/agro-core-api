@@ -40,7 +40,7 @@ const harvestSchema = new Schema<IHarvest>({
     },
     farmer: {
         type: Schema.Types.ObjectId,
-        ref: 'Farmer',
+        ref: 'User',
         required: true,
         immutable: true
     },
