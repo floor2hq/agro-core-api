@@ -4,13 +4,14 @@ import IUser, { User } from "../database/model/user.model";
 const registrationRouter = express.Router();
 
 registrationRouter.post("/", async (req: Request, res: Response): Promise<any> => {
-    const { name, mail, password, role }: IUser = req.body;
+    const { name, mail, password, role,phone }: IUser = req.body;
     try {
         const newUser = new User({
             name,
             mail,
             password,
-            role
+            role,
+            phone
         })
         const savedUser: any = await newUser.save();
         res.send(savedUser.toObject());

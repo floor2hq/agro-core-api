@@ -28,8 +28,7 @@ const farmSchema = new Schema<IFarm>({
         type: Schema.Types.ObjectId,
         ref: 'User',  // Reference to the User model
         required: true,
-    },
-    
+    },    
 });
 
 export const Farm = mongoose.model<IFarm>('Farm', farmSchema, 'farms');

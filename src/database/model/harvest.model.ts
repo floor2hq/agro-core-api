@@ -7,15 +7,16 @@ type qunatityType = {
 }
 
 interface IHarvest extends Document {
-    _id?: mongoose.Types.ObjectId
-    quantity: qunatityType
-    crop: ICrop
-    rate: number
-    farmer: mongoose.Types.ObjectId
-    createdAt: Date
-    updatedAt: Date
-    producedAt: Date
-    bestUntil: number
+    _id?: mongoose.Types.ObjectId;
+    quantity: qunatityType;
+    crop: ICrop;
+    rate: number;
+    farmer: mongoose.Types.ObjectId;
+    farm: mongoose.Types.ObjectId;
+    createdAt: Date;
+    updatedAt: Date;
+    producedAt: Date;
+    bestUntil: number;
 }
 
 const harvestSchema = new Schema<IHarvest>({
@@ -26,7 +27,6 @@ const harvestSchema = new Schema<IHarvest>({
         },
         required: true,
         _id: false
-        
     },
     crop: {
         type: Schema.Types.ObjectId,
@@ -43,6 +43,12 @@ const harvestSchema = new Schema<IHarvest>({
         ref: 'User',
         required: true,
         immutable: true
+    },
+    farm: {
+        type: Schema.Types.ObjectId,
+        ref: 'Farm',
+        required: true,
+        immutable: true,
     },
     createdAt: {
         type: Date,

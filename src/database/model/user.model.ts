@@ -7,7 +7,8 @@ interface IUser extends Document {
     mail: string;
     createdAt: Date;
     password:string;
-    role:ROLE
+    role:ROLE;
+    phone:number;
 }
 
 const userSchema = new Schema<IUser>({
@@ -20,10 +21,6 @@ const userSchema = new Schema<IUser>({
         required: true,
         unique:true
     },
-    createdAt: {
-        type: Date,
-        default: Date.now,
-    }, 
     password: {
         type: String,
         required:true,
@@ -33,6 +30,16 @@ const userSchema = new Schema<IUser>({
         enum: ROLE,
         default:ROLE.FARMER,
     },
+    phone:{
+        type:Number,
+        length:10,
+        required:true,
+        unique:true,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now,
+    }
 });
 
 export const User = mongoose.model<IUser>('User', userSchema, 'users');
