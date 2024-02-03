@@ -3,7 +3,6 @@ import IHarvest, { Harvest } from "../database/model/harvest.model";
 import authenticateToken from "../helpers/authenticateToken";
 import IUser from "../database/model/user.model";
 import mongoose from "mongoose";
-// import isAdmin from "../helpers/isAdmin";
 
 interface customReq extends Request {
     user?: IUser
@@ -35,6 +34,21 @@ HarvestRouter.post("/", authenticateToken, async (req: customReq, res: Response)
     }
 })
 
+HarvestRouter.get("/", authenticateToken, async (req: customReq, res: Response) => {
+
+    // @ts-ignore
+    const farmerID = req.user?.user._id
+    try {
+        const allHarvestsOfFarmer = await Harvest.find({ farmer: new mongoose.Types.ObjectId(farmerID) })
+
+        console.log(allHarvestsOfFarmer)
+        res.json(allHarvestsOfFarmer)
+    } catch (error: any) {
+        console.error("Error fetching harvest", error.message);
+        res.status(500).json({ error: error.message });
+    }
+})
+
 // GET All Surplus / Harvest (FARMER's PERSPECTIVE)
 HarvestRouter.get("/", authenticateToken ,async (req: customReq, res: Response) => {
 
@@ -51,27 +65,13 @@ HarvestRouter.get("/", authenticateToken ,async (req: customReq, res: Response) 
     }
 })
 
-HarvestRouter.get("/", authenticateToken, async (req: customReq, res: Response) => {
-
-    // @ts-ignore
-    const farmerID = req.user?.user._id
-    try {
-        const allHarvestsOfFarmer = await Harvest.find({ farmer: new mongoose.Types.ObjectId(farmerID) })
-
-        console.log(allHarvestsOfFarmer)
-        res.json(allHarvestsOfFarmer)
-    } catch (error: any) {
-        console.error("Error fetching harvest", error.message);
-        res.status(500).json({ error: error.message });
-    }
-})
 
 HarvestRouter.patch("/:id", authenticateToken, async (req: customReq, res: Response) => {
 
     // @ts-ignore
     const harvestUpdate = req.body
     try {
-        const updatedHarvest = await Harvest.findByIdAndUpdate(req.query.id, harvestUpdate)
+        const updatedHarvest = await Harvest.findByIdAndUpdate(req.params.id, {new:true , update: harvestUpdate})
  
         console.log(updatedHarvest)
         res.json(updatedHarvest)
@@ -81,16 +81,17 @@ HarvestRouter.patch("/:id", authenticateToken, async (req: customReq, res: Respo
     }
 })
 
-HarvestRouter.delete("/", authenticateToken, async (req: customReq, res: Response) => {
+HarvestRouter.delete("/:id", authenticateToken, async (req: customReq, res: Response) => {
 
     // @ts-ignore
     const farmerID = req.user?.user._id
     try {
-        const allHarvests = await Harvest.find({ farmer: new mongoose.Types.ObjectId(farmerID) })
-        console.log(allHarvests)
-        res.json(allHarvests)
+        const deletedHarvest = await Harvest.findByIdAndDelete(req.params.id)
+        console.log(req.params.id)
+        console.log(deletedHarvest)
+        res.json(deletedHarvest)
     } catch (error: any) {
-        console.error("Error fetching crops", error.message);
+        console.error("Error deleting harvest", error.message);
         res.status(500).json({ error: error.message });
     }
 })
