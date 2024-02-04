@@ -4,13 +4,13 @@ import jwt from "jsonwebtoken";
 import sanitizeUser from "../helpers/sanitizeUser";
 const loginRouter = express.Router();
 
-loginRouter.post("/", async (req: Request, res: Response): Promise<IUser | undefined> => {
+loginRouter.post("/", async (req: Request, res: Response)=> {
     const { mail, password }: IUser = req.body;
 
     try {
         console.log("Entered")
         console.log({ mail, password })
-        const user: IUser | null = await User.findOne({
+        const user = await User.findOne({
             mail
         })
         console.log(user)
@@ -24,10 +24,9 @@ loginRouter.post("/", async (req: Request, res: Response): Promise<IUser | undef
             // @ts-ignore
             const token = jwt.sign({ user }, 'saswatgay', { expiresIn: '24h' });
             res.status(200).json({ token, user: sanitizeUser(user) });
-            return;
+        }else{
+            res.status(401).json({ error: 'Invalid credentials' });
         }
-
-        res.status(401).json({ error: 'Invalid credentials' });
     } catch (error: any) {
         console.error("Error saving user:", error.message);
         res.status(500).json({ error: error.message });

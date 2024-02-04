@@ -50,21 +50,6 @@ HarvestRouter.get("/", authenticateToken, async (req: customReq, res: Response) 
     }
 })
 
-// GET All Surplus / Harvest (FARMER's PERSPECTIVE)
-HarvestRouter.get("/", authenticateToken ,async (req: customReq, res: Response) => {
-
-    // @ts-ignore
-    const farmerID = req.user?.user._id
-    try {
-        const allHarvests = await Harvest.find()
-
-        console.log(allHarvests)
-        res.json(allHarvests)
-    } catch (error: any) {
-        console.error("Error fetching harvest", error.message);
-        res.status(500).json({ error: error.message });
-    }
-})
 
 
 HarvestRouter.patch("/:id", authenticateToken, async (req: customReq, res: Response) => {
