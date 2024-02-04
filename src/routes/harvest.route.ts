@@ -11,7 +11,7 @@ interface customReq extends Request {
 const HarvestRouter = express.Router();
 
 HarvestRouter.post("/", authenticateToken, async (req: customReq, res: Response) => {
-    const { quantity, crop, rate, producedAt, farm } = req.body;
+    const { quantity,amount, crop, rate, producedAt, farm } = req.body;
 
     try {
         const newHarvest = new Harvest({
@@ -21,12 +21,10 @@ HarvestRouter.post("/", authenticateToken, async (req: customReq, res: Response)
             //@ts-ignore
             farmer: req.user?.user._id,
             producedAt,
-            farm
+            farm,
+            amount
         })
-
-
         const savedHarvest: IHarvest = await newHarvest.save()
-
         console.log(`Harvest ${savedHarvest._id} saved successfully`)
         res.json(savedHarvest);
     } catch (error: any) {

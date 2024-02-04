@@ -22,7 +22,7 @@ app.use(express.json())
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // const HOST = appConfig.hostProd 
-const PORT = 3000
+const PORT = process.env.PORT || 3000;
 // @zakhaev26 this will end in blood and dust
 
 connectToDB()
