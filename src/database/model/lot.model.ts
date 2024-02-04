@@ -6,7 +6,7 @@ type qunatityType = {
     unit: string
 }
 
-interface IStore extends Document {
+interface ILot extends Document {
     _id?: mongoose.Types.ObjectId
     quantity: qunatityType
     crop: ICrop
@@ -19,7 +19,7 @@ interface IStore extends Document {
     bestUntil: number
 }
 
-const storeSchema = new Schema<IStore>({
+const lotSchema = new Schema<ILot>({
     quantity: {
         type: {
             amount: Number,
@@ -72,6 +72,6 @@ const storeSchema = new Schema<IStore>({
 
 });
 
-export const Store = mongoose.model<IStore>('Store', storeSchema, 'stores');
+export const Lot = mongoose.model<ILot>('Lot', lotSchema, 'lots');
 
-export default IStore;
+export default ILot;
