@@ -27,6 +27,7 @@ const storageSchema = new Schema<IStorage>({
         type: Schema.Types.ObjectId,
         ref: 'User',  // Reference to the User model
         required: true,
+        immutable: true
     },
 });
 
