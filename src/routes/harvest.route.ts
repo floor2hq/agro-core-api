@@ -11,7 +11,7 @@ interface customReq extends Request {
 const HarvestRouter = express.Router();
 
 HarvestRouter.post("/", authenticateToken, async (req: customReq, res: Response) => {
-    const { quantity, crop, rate, producedAt,farm } = req.body;
+    const { quantity, crop, rate, producedAt, farm } = req.body;
 
     try {
         const newHarvest = new Harvest({
@@ -40,8 +40,7 @@ HarvestRouter.get("/", authenticateToken, async (req: customReq, res: Response) 
     // @ts-ignore
     const farmerID = req.user?.user._id
     try {
-        const allHarvestsOfFarmer = await Harvest.find({ farmer: new mongoose.Types.ObjectId(farmerID) })
-
+        const allHarvestsOfFarmer = await Harvest.find({ farmer: new mongoose.Types.ObjectId(farmerID) }).populate('crop').populate('farmer').populate('farm')
         console.log(allHarvestsOfFarmer)
         res.json(allHarvestsOfFarmer)
     } catch (error: any) {
@@ -57,8 +56,8 @@ HarvestRouter.patch("/:id", authenticateToken, async (req: customReq, res: Respo
     // @ts-ignore
     const harvestUpdate = req.body
     try {
-        const updatedHarvest = await Harvest.findByIdAndUpdate(req.params.id, {new:true , update: harvestUpdate})
- 
+        const updatedHarvest = await Harvest.findByIdAndUpdate(req.params.id, { new: true, update: harvestUpdate })
+
         console.log(updatedHarvest)
         res.json(updatedHarvest)
     } catch (error: any) {
