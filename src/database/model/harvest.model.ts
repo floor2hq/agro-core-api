@@ -1,14 +1,9 @@
 import mongoose, { Document, Schema } from 'mongoose';
 import ICrop from './crop.model';
 
-type qunatityType = {
-    amount: number,
-    unit: string
-}
-
 interface IHarvest extends Document {
     _id?: mongoose.Types.ObjectId;
-    quantity: qunatityType;
+    quantity: Number;
     crop: ICrop;
     rate: number;
     farmer: mongoose.Types.ObjectId;
@@ -21,12 +16,7 @@ interface IHarvest extends Document {
 
 const harvestSchema = new Schema<IHarvest>({
     quantity: {
-        type: {
-            amount: Number,
-            unit: String
-        },
-        required: true,
-        _id: false
+        Number,
     },
     crop: {
         type: Schema.Types.ObjectId,
