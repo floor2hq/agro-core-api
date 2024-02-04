@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "ts-node-dev src/app.ts --transpile-only",
-    "prod":""
+    "prod": ""
   },
   "keywords": [],
   "author": "",
@@ -16,6 +16,7 @@
     "@types/mongoose": "^5.11.97",
     "@types/node": "^20.11.13",
     "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
     "dotenv": "^16.4.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
@@ -24,6 +25,7 @@
     "ts-node-dev": "^2.0.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/jsonwebtoken": "^9.0.5"
   }
 }
