@@ -8,13 +8,13 @@ interface customReq extends Request {
     user?: IUser
 }
 
-const StoreRouter = express.Router();
+const LotRouter = express.Router();
 
-StoreRouter.post("/", authenticateToken, async (req: customReq, res: Response) => {
+LotRouter.post("/", authenticateToken, async (req: customReq, res: Response) => {
     const { quantity, crop, rate, producedAt,farm } = req.body;
 
     try {
-        const newHarvest = new Harvest({
+        const newLot = new Harvest({
             quantity,
             crop,
             rate,
@@ -25,7 +25,7 @@ StoreRouter.post("/", authenticateToken, async (req: customReq, res: Response) =
         })
 
 
-        const savedHarvest: IHarvest = await newHarvest.save()
+        const savedHarvest: IHarvest = await newLot.save()
 
         console.log(`Harvest ${savedHarvest._id} saved successfully`)
         res.json(savedHarvest);
@@ -35,68 +35,68 @@ StoreRouter.post("/", authenticateToken, async (req: customReq, res: Response) =
     }
 })
 
-StoreRouter.get("/", authenticateToken, async (req: customReq, res: Response) => {
+LotRouter.get("/", authenticateToken, async (req: customReq, res: Response) => {
 
     // @ts-ignore
-    const farmerID = req.user?.user._id
+    const ownerID = req.user?.user._id
     try {
-        const allHarvestsOfFarmer = await Harvest.find({ farmer: new mongoose.Types.ObjectId(farmerID) })
+        const allLotsOfOwner = await Harvest.find({ farmer: new mongoose.Types.ObjectId(ownerID) })
 
-        console.log(allHarvestsOfFarmer)
-        res.json(allHarvestsOfFarmer)
+        console.log(allLotsOfOwner)
+        res.json(allLotsOfOwner)
     } catch (error: any) {
-        console.error("Error fetching harvest", error.message);
+        console.error("Error", error.message);
         res.status(500).json({ error: error.message });
     }
 })
 
 // GET All Surplus / Harvest (FARMER's PERSPECTIVE)
-StoreRouter.get("/", authenticateToken ,async (req: customReq, res: Response) => {
+LotRouter.get("/", authenticateToken ,async (req: customReq, res: Response) => {
 
     // @ts-ignore
-    const farmerID = req.user?.user._id
+    const ownerID = req.user?.user._id
     try {
         const allHarvests = await Harvest.find()
 
         console.log(allHarvests)
         res.json(allHarvests)
     } catch (error: any) {
-        console.error("Error fetching harvest", error.message);
+        console.error("Error", error.message);
         res.status(500).json({ error: error.message });
     }
 })
 
 
-StoreRouter.patch("/:id", authenticateToken, async (req: customReq, res: Response) => {
+LotRouter.patch("/:id", authenticateToken, async (req: customReq, res: Response) => {
 
     // @ts-ignore
-    const harvestUpdate = req.body
+    const lotUpdate = req.body
     try {
-        const updatedHarvest = await Harvest.findByIdAndUpdate(req.params.id, {new:true , update: harvestUpdate})
+        const updatedLot = await Harvest.findByIdAndUpdate(req.params.id, {new:true , update: lotUpdate})
  
-        console.log(updatedHarvest)
-        res.json(updatedHarvest)
+        console.log(updatedLot)
+        res.json(updatedLot)
     } catch (error: any) {
-        console.error("Error updating harvest: ", error.message);
+        console.error("Error: ", error.message);
         res.status(500).json({ error: error.message });
     }
 })
 
-StoreRouter.delete("/:id", authenticateToken, async (req: customReq, res: Response) => {
+LotRouter.delete("/:id", authenticateToken, async (req: customReq, res: Response) => {
 
     // @ts-ignore
-    const farmerID = req.user?.user._id
+    const ownerID = req.user?.user._id
     try {
-        const deletedHarvest = await Harvest.findByIdAndDelete(req.params.id)
+        const deletedLot = await Harvest.findByIdAndDelete(req.params.id)
         console.log(req.params.id)
-        console.log(deletedHarvest)
-        res.json(deletedHarvest)
+        console.log(deletedLot)
+        res.json(deletedLot)
     } catch (error: any) {
-        console.error("Error deleting harvest", error.message);
+        console.error("Error", error.message);
         res.status(500).json({ error: error.message });
     }
 })
 
 
 
-export default StoreRouter
+export default LotRouter
